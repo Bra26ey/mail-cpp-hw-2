@@ -19,8 +19,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v2
+
       - name: build
-        working-directory: ${{runner.workspace}}
+        working-directory: ${{runner.workspace}}/mail-cpp-hw-2
         shell: bash
         run: |
           mkdir build
