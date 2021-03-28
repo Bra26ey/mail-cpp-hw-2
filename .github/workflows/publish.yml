@@ -39,7 +39,7 @@ jobs:
       - name: test
         shell: bash
         run: |
-          udo apt install -y valgrind
+          sudo apt install -y valgrind
           valgrind ctest -V -R
 
   codecov:
