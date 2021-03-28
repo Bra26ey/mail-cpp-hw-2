@@ -7,12 +7,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v2
+  
       - name: run cppcheck
         uses: deep5050/cppcheck-action@master
         with:
           exclude_check: ./build
-          enable : warning, style, performance, portability, unusedFunction, missingInclude
-          inconclusive : disable
+          enable: warning, style, performance, portability, unusedFunction, missingInclude
+          inconclusive: disable
 
   build:
     name: build project and run tests
@@ -26,6 +28,10 @@ jobs:
           sudo apt-get install libgtest-dev
           cd /usr/src/gtest
           sudo cmake CMakeLists.txt
+          
+      - name: install valgrind
+        run: |
+          sudo apt-get install valgrind
 
       - name: build
         working-directory: ${{runner.workspace}}/mail-cpp-hw-2
@@ -46,7 +52,6 @@ jobs:
         working-directory: ${{runner.workspace}}mail-cpp-hw-2/build
         shell: bash
         run: |
-          sudo apt install -y valgrind
           valgrind ctest
 
       - name: ci coverage
