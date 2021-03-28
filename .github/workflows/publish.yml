@@ -22,7 +22,7 @@ jobs:
 
     steps:
       - name: build
-        working-directory: ${{runner.workspace}}/mail-cpp-hw-2
+        working-directory: ${{runner.workspace}}
         shell: bash
         run: |
           mkdir build
@@ -38,7 +38,7 @@ jobs:
 
     steps:
       - name: run tests
-        working-directory: ${{runner.workspace}}/mail-cpp-hw-2
+        working-directory: ${{runner.workspace}}
         shell: bash
         run: |
           udo apt install -y valgrind
