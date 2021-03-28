@@ -39,14 +39,15 @@ jobs:
       - name: test
         shell: bash
         run: |
+          ctest -V -R
+
+      - name: memcheck
+        shell: bash
+        run: |
           sudo apt install -y valgrind
-          valgrind ctest -V -R
+          valgrind ctest
 
-  codecov:
-    name: ci coverage
-    runs-on: ubuntu-latest
-
-    steps:
+      - name: ci coverage
       - uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
