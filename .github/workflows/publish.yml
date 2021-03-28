@@ -10,17 +10,11 @@ jobs:
       - uses: actions/checkout@v2
   
       - name: run cppcheck
-        working-directory: ${{runner.workspace}}/mail-cpp-hw-2
         uses: deep5050/cppcheck-action@master
         with:
           exclude_check: ./build
           enable: warning, style, performance, portability, unusedFunction, missingInclude
           inconclusive: disable
-     
-      - name: publish report    
-        uses: mikeal/publish-to-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build:
     name: build project and run tests
