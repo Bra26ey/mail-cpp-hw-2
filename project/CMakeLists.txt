@@ -2,8 +2,8 @@ find_library(PTHREAD_LIBRARY pthread)
 
 include_directories(include)
 
-set(SUCCESSIVE_SRC src/comb_sort.c)
-set(PARALLEL_SRC src/merge_sort.c)
+set(SUCCESSIVE_SRC src/array.c src/comb_sort.c)
+set(PARALLEL_SRC src/array.c src/merge_sort.c)
 
 add_library(successive_sort STATIC ${SUCCESSIVE_SRC})
 add_library(parallel_sort SHARED ${PARALLEL_SRC})

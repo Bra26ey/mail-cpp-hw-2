@@ -17,4 +17,3 @@ int print_array(Array *array, FILE *stream);
 bool is_equal(Array *first, Array *second);
 
 #endif  // PROJECT_INCLUDE_ARRAY_H_
-
