@@ -7,12 +7,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: deep5050/cppcheck-action@master
+      - name: run cppcheck
+        uses: deep5050/cppcheck-action@master
         with:
           exclude_check: ./build
-          enable : warning,style, performance, portability, unusedFunction, missingInclude
+          enable : warning, style, performance, portability, unusedFunction, missingInclude
           inconclusive : disable
-      - env:
+        env:
           CI: true
 
   build:
@@ -20,15 +21,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - working-directory: ${{runner.workspace}}/mail-cpp-hw-2
-      - shell: bash
-      - run: |
+      - name: build
+        working-directory: ${{runner.workspace}}/mail-cpp-hw-2
+        shell: bash
+        run: |
           mkdir build
           cd build
           cmake ..
           make
-      - env:
+        env:
           CI: true
 
   test:
@@ -36,9 +37,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - working-directory: ${{runner.workspace}}/mail-cpp-hw-2
-      - shell: bash
-      - run: |
+      - name: run tests
+        working-directory: ${{runner.workspace}}/mail-cpp-hw-2
+        shell: bash
+        run: |
           udo apt install -y valgrind
           valgrind ctest -V -R
 
@@ -48,6 +50,6 @@ jobs:
 
     steps:
       - uses: codecov/codecov-action@v1
-      - with:
+        with:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
