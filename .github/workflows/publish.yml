@@ -13,8 +13,6 @@ jobs:
           exclude_check: ./build
           enable : warning, style, performance, portability, unusedFunction, missingInclude
           inconclusive : disable
-        env:
-          CI: true
 
   build:
     name: build project and run tests
@@ -35,9 +33,6 @@ jobs:
         run: |
           udo apt install -y valgrind
           valgrind ctest -V -R
-      
-      - env:
-          CI: true
 
   codecov:
     name: ci coverage
