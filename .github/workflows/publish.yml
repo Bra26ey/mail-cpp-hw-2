@@ -37,11 +37,13 @@ jobs:
           make
 
       - name: test
+        working-directory: ${{runner.workspace}}/TP_C_TASK2/build
         shell: bash
         run: |
           ctest -V -R
 
       - name: memcheck
+        working-directory: ${{runner.workspace}}/TP_C_TASK2/build
         shell: bash
         run: |
           sudo apt install -y valgrind
