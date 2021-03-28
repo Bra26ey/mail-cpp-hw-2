@@ -1,0 +1,53 @@
+name: My CI
+on: push
+
+jobs:
+  codestyle:
+    name: codestyle check
+    runs-on: ubuntu-latest
+
+    steps:
+      uses: deep5050/cppcheck-action@master
+      with:
+        exclude_check: ./build
+        enable : warning,style, performance, portability, unusedFunction, missingInclude
+        inconclusive : disable
+      env:
+        CI: true
+
+  build:
+    name: build project
+    runs-on: ubuntu-latest
+
+    steps:
+      uses: actions/checkout@v2
+      working-directory: ${{runner.workspace}}/mail-cpp-hw-2
+      shell: bash
+      run: |
+        mkdir build
+        cd build
+        cmake ..
+        make
+      env:
+        CI: true
+
+  test:
+    name: test
+    runs-on: ubuntu-latest
+
+    steps:
+      working-directory: ${{runner.workspace}}/mail-cpp-hw-2
+      shell: bash
+      run: |
+        udo apt install -y valgrind
+        valgrind ctest -V -R
+
+  codecov:
+    name: ci coverage
+    runs-on: ubuntu-latest
+
+    steps:
+      uses: codecov/codecov-action@v1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        fail_ci_if_error: true
