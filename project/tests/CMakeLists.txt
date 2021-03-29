@@ -28,8 +28,3 @@ add_test(
     NAME ParallelTest
     COMMAND tests ${PROJECT_SOURCE_DIR}/project/tests/data --gtest_filter=*Parallel*
 )
-
-add_test(
-    NAME CompareTest
-    COMMAND tests ${PROJECT_SOURCE_DIR}/project/tests/data --gtest_filter=*Compare*
-)

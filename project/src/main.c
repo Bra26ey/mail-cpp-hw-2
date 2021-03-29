@@ -2,7 +2,6 @@
 #include <string.h>
 
 #include "utils.h"
-#include "array.h"
 #include "comb_sort.h"
 #include "merge_sort.h"
 
@@ -15,16 +14,13 @@ int main(int argc, const char *argv[]) {
         return ERROR_ARG;
     }
 
-    bool is_parallel = !strcmp(argv[1], PARALLEL);
-    bool is_native = !strcmp(argv[1], NAIVE);
-    if (!is_native && !is_parallel) {
-        fprintf(stderr,"error: unknown arg\n");
+    FILE *file = fopen(argv[1], "r");
+    if (unlikely(file == NULL)) {
         return ERROR_ARG;
     }
 
-
     size_t size;
-    int code = fscanf(stdin, "%lu", &size);
+    int code = fscanf(file, "%lu", &size);
     if (unlikely(code < 0)) {
         fprintf(stderr,"error: incorrect input\n");
         return ERROR_INPUT;
@@ -35,27 +31,18 @@ int main(int argc, const char *argv[]) {
         return ERROR_MEM;
     }
 
-    code = read_array(array, stdin);
+    code = read_array(array, file);
     if (unlikely(code != SUCCESS)) {
         free_array(array);
         return ERROR_INPUT;
     }
 
-    if (is_native) {
-        code = comb_sort(array);
-        if (unlikely(code != SUCCESS)) {
-            free_array(array);
-            return code;
-        }
+    code = sort(array);
+    if (unlikely(code != SUCCESS)) {
+        free_array(array);
+        return code;
     }
 
-    if (is_parallel) {
-        code = merge_sort(array);
-        if (unlikely(code != SUCCESS)) {
-            free_array(array);
-            return code;
-        }
-    }
 
     code = print_array(array, stdout);
     if (unlikely(code != SUCCESS)) {

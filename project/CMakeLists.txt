@@ -10,11 +10,10 @@ add_library(parallel_sort SHARED ${PARALLEL_SRC})
 
 target_link_libraries(parallel_sort ${PTHREAD_LIBRARY})
 
-add_executable(${PROJECT_NAME} src/main.c)
+add_executable(successive_program src/main.c)
+target_link_libraries(successive_program successive_sort)
 
-target_link_libraries(${PROJECT_NAME} 
-    successive_sort
-    parallel_sort
-)
+add_executable(parallel_program src/main.c)
+target_link_libraries(parallel_program parallel_sort)
 
 add_subdirectory(tests)

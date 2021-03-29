@@ -23,7 +23,7 @@ static void swap(int *a, int* b);
 static void merge(Arguments *arguments, Array *array);
 static size_t get_min_index(Arguments *arguments);
 
-int merge_sort(Array *array) {
+int sort(Array *array) {
     if (unlikely(array == NULL)) {
         return ERROR_ARG;
     }

@@ -1,5 +1,9 @@
 #include "tools.h"
 
+extern "C" {
+    #include "comb_sort.h"
+}
+
 TEST(SuccessiveSort, Ordinary) {
     for (auto &entry : std::experimental::filesystem::directory_iterator(glob_test_dir / "ordinary")) {
         std::cout << entry.path() << std::endl;
@@ -18,7 +22,7 @@ TEST(SuccessiveSort, Ordinary) {
         read_array(expected, file);
         fclose(file);
 
-        ASSERT_EQ(comb_sort(real), 0);
+        ASSERT_EQ(sort(real), 0);
         ASSERT_EQ(is_equal(real, expected), true);
 
         free_array(real);
@@ -44,7 +48,7 @@ TEST(SuccessiveSort, Stress) {
         read_array(expected, file);
         fclose(file);
 
-        ASSERT_EQ(comb_sort(real), 0);
+        ASSERT_EQ(sort(real), 0);
         ASSERT_EQ(is_equal(real, expected), true);
 
         free_array(real);
@@ -62,11 +66,11 @@ TEST(SuccessiveSort, Broken) {
         fscanf(file, "%lu", &size);
         auto array = create_array(size);
         ASSERT_EQ((read_array(array, stdin) != 0), true);
-        ASSERT_EQ((comb_sort(array) != 0), true);
+        ASSERT_EQ((sort(array) != 0), true);
 
         fclose(file);
         free_array(array);
     }
     ASSERT_EQ((read_array(NULL, stdin) != 0), true);
-    ASSERT_EQ((comb_sort(NULL) != 0), true);
+    ASSERT_EQ((sort(NULL) != 0), true);
 }

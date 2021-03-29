@@ -6,7 +6,7 @@
 static size_t get_gap(size_t gap);
 static void swap(int *a, int* b);
 
-int comb_sort(Array *array) {
+int sort(Array *array) {
     if (unlikely(array == NULL)) {
         return ERROR_ARG;
     }

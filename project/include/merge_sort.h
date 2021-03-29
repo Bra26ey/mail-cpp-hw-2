@@ -3,6 +3,6 @@
 
 #include "array.h"
 
-int merge_sort(Array *array);
+int sort(Array *array);
 
 #endif  // MERGE_SORT_H_
