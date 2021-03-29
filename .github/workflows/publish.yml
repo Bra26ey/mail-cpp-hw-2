@@ -49,12 +49,12 @@ jobs:
       - name: run successive program
         working-directory: ${{runner.workspace}}/mail-cpp-hw-2/build/project
         shell: bash
-        run: ./successive_program ../project/tests/data/stress/test6/in.txt
+        run: ./successive_program ../../project/tests/data/stress/test6/in.txt
 
       - name: run parallel program
         working-directory: ${{runner.workspace}}/mail-cpp-hw-2/build/project
         shell: bash
-        run: ./parallel_program ../project/tests/data/stress/test6/in.txt
+        run: ./parallel_program ../../project/tests/data/stress/test6/in.txt
 
       - name: memcheck
         working-directory: ${{runner.workspace}}/mail-cpp-hw-2/build
