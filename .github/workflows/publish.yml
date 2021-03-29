@@ -1,5 +1,7 @@
 name: publish
 on: push
+env:
+  build_type: release
 
 jobs:
   codestyle:
