@@ -30,8 +30,7 @@ jobs:
           sudo cmake CMakeLists.txt
           
       - name: install valgrind
-        run: |
-          sudo apt-get install valgrind
+        run: sudo apt-get install valgrind
 
       - name: build
         working-directory: ${{runner.workspace}}/mail-cpp-hw-2
@@ -60,8 +59,7 @@ jobs:
       - name: memcheck
         working-directory: ${{runner.workspace}}/mail-cpp-hw-2/build
         shell: bash
-        run: |
-          valgrind ctest
+        run: valgrind ctest
 
       - name: ci coverage
         uses: codecov/codecov-action@v1
