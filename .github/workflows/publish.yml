@@ -4,22 +4,8 @@ env:
   build_type: release
 
 jobs:
-  codestyle:
-    name: codestyle check
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-  
-      - name: run cppcheck
-        uses: deep5050/cppcheck-action@master
-        with:
-          exclude_check: ./build
-          enable: warning, style, performance, portability, unusedFunction, missingInclude
-          inconclusive: disable
-
   build:
-    name: build project and run tests
+    name: build project, run tests and linters
     runs-on: ubuntu-latest
 
     steps:
@@ -62,6 +48,13 @@ jobs:
         working-directory: ${{runner.workspace}}/mail-cpp-hw-2/build
         shell: bash
         run: valgrind ctest
+        
+      - name: run cppcheck
+        uses: deep5050/cppcheck-action@master
+        with:
+          exclude_check: ./build
+          enable: warning, style, performance, portability, unusedFunction, missingInclude
+          inconclusive: disable
 
       - name: ci coverage
         uses: codecov/codecov-action@v1
