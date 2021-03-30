@@ -48,15 +48,21 @@ jobs:
         working-directory: ${{runner.workspace}}/mail-cpp-hw-2/build
         shell: bash
         run: valgrind ctest
-        
-      - name: run cppcheck
-        uses: deep5050/cppcheck-action@master
-        with:
-          enable: warning, style, performance, portability, unusedFunction, missingInclude
-          force_language: c, c++
 
       - name: ci coverage
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
+
+  lintets:
+    name: cppcheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+          
+      - name: run cppcheck
+        uses: deep5050/cppcheck-action@main
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          enable: all
