@@ -1,5 +1,5 @@
 name: cppcheck-action-test
-on: [push]
+on: push
 
 jobs:
   build:
@@ -12,3 +12,4 @@ jobs:
         uses: deep5050/cppcheck-action@main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN}}
+          enable: all
