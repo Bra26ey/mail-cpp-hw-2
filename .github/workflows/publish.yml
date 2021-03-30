@@ -53,7 +53,7 @@ jobs:
         uses: deep5050/cppcheck-action@master
         with:
           enable: warning, style, performance, portability, unusedFunction, missingInclude
-          inconclusive: disable
+          force_language: c, c++
 
       - name: ci coverage
         uses: codecov/codecov-action@v1
