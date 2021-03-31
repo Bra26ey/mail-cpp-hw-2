@@ -3,6 +3,6 @@
 
 #include "array.h"
 
-int sort(Array *array);
+int sort(Array *const array);
 
 #endif  // PROJECT_INCLUDE_COMB_H_

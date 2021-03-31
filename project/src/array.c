@@ -36,7 +36,7 @@ void free_array(Array* array) {
     free(array);
 }
 
-int read_array(Array *array, FILE *stream) {
+int read_array(Array *const array, FILE *stream) {
     if (unlikely(array == NULL || stream == NULL)) {
         return ERROR_ARG;
     }
@@ -52,7 +52,7 @@ int read_array(Array *array, FILE *stream) {
     return SUCCESS;
 }
 
-int print_array(Array *array, FILE *stream) {
+int print_array(Array *const array, FILE *stream) {
     if (unlikely(array == NULL)) {
         return ERROR_ARG;
     }
@@ -69,7 +69,7 @@ int print_array(Array *array, FILE *stream) {
     return SUCCESS;
 }
 
-bool is_equal(Array *first, Array *second) {
+bool is_equal(const Array *const first, const Array *const second) {
     if (unlikely(first == NULL || second == NULL)) {
         return false;
     }

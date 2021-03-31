@@ -15,15 +15,15 @@ typedef struct Arguments {
     size_t size;       // Размерность = количество потоков
 } Arguments;
 
-static Arguments* create_arg(size_t nom_threads, Array *array);
+static Arguments* create_arg(size_t nom_threads, Array *const array);
 static void free_arg(Arguments *arguments);
 static void* thread_comb_sort(void *arg);
 static size_t get_gap(size_t gap);
 static void swap(int *a, int* b);
-static void merge(Arguments *arguments, Array *array);
-static size_t get_min_index(Arguments *arguments);
+static void merge(Arguments *const arguments, Array *const array);
+static size_t get_min_index(Arguments *const arguments);
 
-int sort(Array *array) {
+int sort(Array *const array) {
     if (unlikely(array == NULL)) {
         return ERROR_ARG;
     }
@@ -84,7 +84,7 @@ int sort(Array *array) {
     return SUCCESS;
 }
 
-Arguments* create_arg(size_t nom_threads, Array *array) {
+Arguments* create_arg(size_t nom_threads, Array *const array) {
     Arguments *arguments = (Arguments*)malloc(sizeof(Arguments));
     if (unlikely(arguments == NULL)) {
         fprintf(stderr, "%s\n", "error: memory allocation failed");
@@ -147,7 +147,7 @@ Arguments* create_arg(size_t nom_threads, Array *array) {
     return arguments;
 }
 
-void free_arg(Arguments* arguments) {
+void free_arg(Arguments *arguments) {
     if (unlikely(arguments == NULL)) {
         return;
     }
@@ -190,14 +190,14 @@ void swap(int *a, int* b) {
     *b = tmp;
 }
 
-void merge(Arguments *arguments, Array *array) {
+void merge(Arguments *const arguments, Array *const array) {
     for (size_t i = 0; i < array->size; ++i) {
         size_t min_index = get_min_index(arguments);
         array->data[i] = arguments->array[min_index]->data[arguments->bound[min_index]++];
     }
 }
 
-size_t get_min_index(Arguments *arguments) {
+size_t get_min_index(Arguments *const arguments) {
     int min = __INT_MAX__;
     size_t nom_min;
     for (size_t i = 0; i < arguments->size; ++i) {
