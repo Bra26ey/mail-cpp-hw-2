@@ -16,6 +16,7 @@ int main(int argc, const char *argv[]) {
 
     FILE *file = fopen(argv[1], "r");
     if (unlikely(file == NULL)) {
+        fprintf(stderr,"error: file not found\n");
         return ERROR_ARG;
     }
 

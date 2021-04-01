@@ -52,7 +52,7 @@ int read_array(Array *const array, FILE *stream) {
     return SUCCESS;
 }
 
-int print_array(Array *const array, FILE *stream) {
+int print_array(const Array *const array, FILE *stream) {
     if (unlikely(array == NULL)) {
         return ERROR_ARG;
     }

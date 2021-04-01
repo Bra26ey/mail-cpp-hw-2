@@ -20,7 +20,7 @@ static void free_arg(Arguments *arguments);
 static void* thread_comb_sort(void *arg);
 static size_t get_gap(size_t gap);
 static void swap(int *a, int* b);
-static void merge(Arguments *const arguments, Array *const array);
+static int merge(Arguments *const arguments, Array *const array);
 static size_t get_min_index(Arguments *const arguments);
 
 int sort(Array *const array) {
@@ -50,7 +50,7 @@ int sort(Array *const array) {
         return ERROR_MEM;
     }
 
-    for (size_t i = 0; (long)i < NOM_THREADS; ++i) {
+    for (size_t i = 0; i < (size_t) NOM_THREADS; ++i) {
         int code = pthread_create(threads + i, NULL, thread_comb_sort, (void*)(arguments->array[i]));
         if (unlikely(code != 0)) {
             for (size_t j = 0; j < i; ++j) {
@@ -63,10 +63,10 @@ int sort(Array *const array) {
         }
     }
 
-    for (size_t i = 0; i < (size_t)NOM_THREADS; ++i) {
+    for (size_t i = 0; i < (size_t) NOM_THREADS; ++i) {
         int code = pthread_join(threads[i], NULL);
         if (unlikely(code != 0)) {
-            for (size_t j = 0; j < (size_t)NOM_THREADS; ++j) {
+            for (size_t j = 0; j < (size_t) NOM_THREADS; ++j) {
                 pthread_cancel(threads[j]);
             }
             free_arg(arguments);
@@ -190,11 +190,12 @@ void swap(int *a, int* b) {
     *b = tmp;
 }
 
-void merge(Arguments *const arguments, Array *const array) {
+int merge(Arguments *const arguments, Array *const array) {
     for (size_t i = 0; i < array->size; ++i) {
         size_t min_index = get_min_index(arguments);
         array->data[i] = arguments->array[min_index]->data[arguments->bound[min_index]++];
     }
+    return SUCCESS;
 }
 
 size_t get_min_index(Arguments *const arguments) {
