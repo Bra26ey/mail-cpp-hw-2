@@ -1,0 +1,3 @@
+ignore:
+    - "project/src/main.c"
+    - "project/tests/**/*"
